@@ -31,6 +31,13 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4
+
+      - name: install node js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: install dependendencies
+        run: npm ci
       - name: lint check
         run: npm run lint
 
