@@ -1,7 +1,7 @@
-name: Deploy project
+name: Deploy project parallel
 on: push
 jobs:
-  get code:
+  getcode:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -9,8 +9,8 @@ jobs:
 
 
   
-  install all:
-    needs: get code
+  installall:
+    needs: getcode
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -25,8 +25,8 @@ jobs:
 
 
   
-  lint code:
-    needs: install all
+  lintcode:
+    needs: installall
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -38,8 +38,8 @@ jobs:
 
 
   
-  test code:
-    needs: lint code
+  testcode:
+    needs: lintcode
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -50,8 +50,8 @@ jobs:
 
 
 
-  deploy code:
-    needs: test code
+  deploycode:
+    needs: testcode
     runs-on: ubuntu-latest
     steps:
       - name: Get code
