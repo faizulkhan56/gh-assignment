@@ -1,0 +1,56 @@
+name: Deploy project
+on: push
+jobs:
+  get code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+
+jobs:
+  needs: get code
+  install all:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: install node js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: install dependendencies
+        run: npm ci
+
+
+jobs:
+  needs: install all
+  lint code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: lint check
+        run: npm run lint
+
+
+
+jobs:
+  needs: lint code
+  test code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: run test
+        run: npm test
+
+
+jobs:
+  needs: test code
+  deploy code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: deploy job
+        run: echo "deploy job successfully"
